@@ -172,3 +172,4 @@ buildNumber.properties
 # myeclipse
 .myeclipse
 .eclipse
+.idea
