@@ -1,13 +1,12 @@
 package com.sinosteel.framework.config.druid;
 
+import com.alibaba.druid.support.http.StatViewServlet;
+import com.alibaba.druid.support.http.WebStatFilter;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-
-import com.alibaba.druid.support.http.StatViewServlet;
-import com.alibaba.druid.support.http.WebStatFilter;
 
 /*
 Druid是Java语言中最好的数据库连接池。Druid能够提供强大的监控和扩展功能
@@ -31,7 +30,7 @@ public class DruidConfig
     }
 
     @Bean
-    public FilterRegistrationBean filterRegistrationBean() 
+    public FilterRegistrationBean filterRegistrationBean()
     {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
         filterRegistrationBean.setFilter(new WebStatFilter());
