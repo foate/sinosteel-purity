@@ -1,4 +1,4 @@
-# Sinosteel框架修改
+# Sinosteel框架(mysql版含权限)
 
 ## 代码整合
 framework-example中的将Project和Knowledge整合进framework中，代码结构如下：
@@ -48,12 +48,7 @@ framework-example中的将Project和Knowledge整合进framework中，代码结�
     │   └── system.properties              --系统配置
     └── structure.json                     --整个框架的结构
 ```
-## 删除部分模块
-- 删除Shiro模块
-    - 做登录验证和权限认证的模块
-- 删除Redis模块
-    - 做数据缓存的模块
-    - 主要是缓存一些查询结果，下次查询更快
+
 ## 项目运行
 java版本使用java 8及以下的版本，java 9之后的版本缺少了一些包。
 - 在项目根目录执行`mvn clean package -DskipTests`打包
@@ -74,26 +69,6 @@ services:
 ```
 - 执行 `mvn spring-boot:run`启动项目
 
-## 新增helpers/hibernate模块
-Hibernate默认会将表名以小写的形式创建，这里继承PhysicalNamingStrategyStandardImpl类，重写`toPhysicalTableName`方法，
-将tableName转换为大写。
-```java
-@Override
-public Identifier toPhysicalTableName(Identifier name, JdbcEnvironment context) {
-    // 将表名全部转换成大写
-    String tableName = name.getText().toUpperCase();
-
-    System.out.println("修改后的表名："+tableName);
-
-    return name.toIdentifier(tableName);
-}
-```
-在datasource.properties中加入 
-```
-#修改Hibernate默认的表的命名策略
-spring.jpa.properties.hibernate.physical_naming_strategy=com.sinosteel.framework.helpers.hibernate.HibernateSqlUpperCaseStrategy
-```
-即利用自定义的策略创建表
 
 ## 整合数据库初始化模块
 在resource/db/mysql中将mysql schema和data分开处理，schema.sql负责创建表和增加约束，data.sql负责插入数据。
